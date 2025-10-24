@@ -1,7 +1,7 @@
 Building configuration...
 
 
-Current configuration : 3978 bytes
+Current configuration : 3995 bytes
 !
 version 12.4
 service timestamps debug datetime msec
@@ -26,10 +26,11 @@ ip cef
 ip dhcp excluded-address 172.16.1.1 172.16.1.9
 !
 ip dhcp pool LAN
+   import all
    network 172.16.1.0 255.255.255.0
    default-router 172.16.1.1 
-   dns-server 10.175.1.11 10.175.1.15 
-   lease 7
+   dns-server 172.16.1.1 
+   lease 0 8
 !
 !
 no ipv6 cef
@@ -113,7 +114,7 @@ interface FastEthernet1/6
 !
 interface FastEthernet1/7
  description NM-ESW-16 switch ports
-!
+!         
 interface FastEthernet1/8
  description NM-ESW-16 switch ports
 !
@@ -178,6 +179,7 @@ ip forward-protocol nd
 no ip http server
 no ip http secure-server
 !
+ip dns server
 ip nat inside source list 2 interface FastEthernet0/0 overload
 !
 access-list 2 permit 172.16.0.0 0.0.0.255
@@ -224,7 +226,7 @@ dial-peer voice 102 pots
 dial-peer voice 103 pots
  destination-pattern 103
  port 0/0/3
-!         
+!
 dial-peer voice 200 pots
  destination-pattern 200
  port 0/3/0
